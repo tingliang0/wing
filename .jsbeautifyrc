@@ -1,0 +1,10 @@
+{
+    "html": {
+        "keep_array_indentation": true,
+        "keep_function_indentation": true
+    },
+    "js": {
+        "keep_array_indentation": true,
+        "keep_function_indentation": true
+    }
+}
