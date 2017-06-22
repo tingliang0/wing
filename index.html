@@ -8,13 +8,14 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body onload="doGLDraw();">
+<body onload="new MyGame('GLCanvas');">
     <canvas id="GLCanvas" width="640" height="480">
         Your brower does not support the HTML5 canvas.
     </canvas>
-    <script type="text/javascript" src="src/WebGL.js"></script>
-    <script type="text/javascript" src="src/VertexBuffer.js"></script>
-    <script type="text/javascript" src="src/ShaderSupport.js"></script>
+    <script type="text/javascript" src="src/Engine/Core.js"></script>
+    <script type="text/javascript" src="src/Engine/Engine_VertexBuffer.js"></script>    
+    <script type="text/javascript" src="src/Engine/SimpleShader.js"></script>    
+    <script type="text/javascript" src="src/MyGame/MyGame.js"></script>    
 
     <script type="x-shader/x-vertex" id="VertexShader">
         attribute vec3 aSquareVertexPosition; 
