@@ -1,3 +1,5 @@
-# folder
-* The `src/Engine` folder contains the source code to the game engine. In this way, the game engine is simply a library that provides functionality for creating games. 
-* The `src/MyGame` folder will contain the actual source code to a game. the code in this folder will be referred to as the client of the game engine.
+# source code
+- `index.html`: This is the file that contains the HTML code that defines the canvas on the web page for the game and loads all of the source code for your game.
+- `src/GLSLShaders`: This is the folder that contains all the GLSL source code files that shade the elements of your game.
+- `src/Engine`: This is the folder that contains all the source code for your game engine.
+- `src/MyGame`: This is the client folder that contains the source code for the actual game.

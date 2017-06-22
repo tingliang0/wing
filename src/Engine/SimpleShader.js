@@ -24,13 +24,24 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     gl.vertexAttribPointer(this.mShaderVertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 }
 
-SimpleShader.prototype._loadAndCompileShader = function (id, shaderType) {
+SimpleShader.prototype._loadAndCompileShader = function (filePath, shaderType) {
     var shaderText, shaderSource, compiledShader;
     var gl = gEngine.Core.getGL();
 
     // get shader source
-    shaderText = document.getElementById(id);
-    shaderSource = shaderText.firstChild.textContent;
+    xmlReq = new XMLHttpRequest();
+    xmlReq.open('GET', filePath, false);
+    try {
+        xmlReq.send();
+    } catch (error) {
+        alert("Failed to load shader: " + filePath);
+        return null;
+    }
+    shaderSource = xmlReq.responseText;
+    if (shaderSource === null) {
+        alert("WARNING: Loading of: " + filePath + " Failed!");
+        return null;
+    }
 
     // compile
     compiledShader = gl.createShader(shaderType);
