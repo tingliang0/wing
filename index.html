@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body onload="new MyGame('GLCanvas');">
     <canvas id="GLCanvas" width="640" height="480">
         Your brower does not support the HTML5 canvas.
     </canvas>
-    <script type="text/javascript" src="src/Engine/Core.js"></script>
-    <script type="text/javascript" src="src/Engine/Engine_VertexBuffer.js"></script>    
-    <script type="text/javascript" src="src/Engine/SimpleShader.js"></script>    
+    <script type="text/javascript" src="src/Engine/Core/Core.js"></script>
+    <script type="text/javascript" src="src/Engine/Core/VertexBuffer.js"></script>
+    <script type="text/javascript" src="src/Engine/SimpleShader.js"></script>
+    <script type="text/javascript" src="src/Engine/Renderable.js"></script>
     <!--start -->
-    <script type="text/javascript" src="src/MyGame/MyGame.js"></script>    
+    <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
 </body>
 
 </html>
