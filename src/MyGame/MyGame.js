@@ -2,12 +2,20 @@ function MyGame(htmlCanvasID) {
     gEngine.Core.initializeWebGL(htmlCanvasID);
     var gl = gEngine.Core.getGL();
     
+    // Step the camera
+    this.mCamera = new Camera(
+        vec2.fromValues(20, 60),
+        20,
+        [20, 40, 600, 300]
+    );
+
     // Create the shader
     this.mConstColorShader = new SimpleShader(
         "src/GLSLShaders/SimpleVS.glsl",
         "src/GLSLShaders/SimpleFS.glsl"
     );
 
+    // Create the Renderable objects
     this.mBlueSq = new Renderable(this.mConstColorShader);
     this.mBlueSq.setColor([0.25, 0.25, 0.95, 1]);
     this.mRedSq = new Renderable(this.mConstColorShader);
@@ -21,42 +29,12 @@ function MyGame(htmlCanvasID) {
     this.mBLSq = new Renderable(this.mConstColorShader);    // Bottom-Left
     this.mBLSq.setColor([0.1, 0.1, 0.1, 1]);
 
+    // Clear the canvas
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1]);
-    gl.viewport(
-        20,
-        40,
-        600,
-        300
-    );
-    gl.scissor(
-        20,
-        40,
-        600,
-        300
-    );
-    gl.enable(gl.SCISSOR_TEST);
-    gEngine.Core.clearCanvas([0.8, 0.8, 0.8, 1.0]);
-    gl.disable(gl.SCISSOR_TEST);
 
-    // Set up View and Projection matrices
-    var viewMatrix = mat4.create();
-    var projMatrix = mat4.create();
-    mat4.lookAt(viewMatrix, 
-        [20, 60, 10],       // camera position
-        [20, 60, 0],        // look at position
-        [0, 1, 0]           // orientation
-    );
-    mat4.ortho(projMatrix,
-        -10,
-        10,
-        -5,
-        5,
-        0,
-        1000
-    );
-
-    var vpMatrix = mat4.create();
-    mat4.multiply(vpMatrix, projMatrix, viewMatrix);
+    // Start the drawing by activating the camera
+    this.mCamera.setupViewProjection();
+    var vpMatrix = this.mCamera.getVPMatrix();
 
     // Draw the blue square
     this.mBlueSq.getXform().setPosition(20, 60);
