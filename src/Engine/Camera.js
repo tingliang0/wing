@@ -68,17 +68,17 @@ Camera.prototype.getWCCenter = function() {
     return this.mWCCenter;
 };
 
-Camera.setViewport = function(viewportArray) {
+Camera.prototype.setViewport = function(viewportArray) {
     this.mViewport = viewportArray;
 };
-Camera.getViewport = function() {
+Camera.prototype.getViewport = function() {
     return this.mViewport;
 };
 
-Camera.setBackgroundColor = function(newColor) {
+Camera.prototype.setBackgroundColor = function(newColor) {
     this.mBgColor = newColor;
 };
-Camera.getBackgroundColor = function() {
+Camera.prototype.getBackgroundColor = function() {
     return this.mBgColor;
 };
 
