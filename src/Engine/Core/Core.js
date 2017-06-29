@@ -8,16 +8,19 @@ gEngine.Core = (function() {
         return mGL;
     }
 
-    var initializeWebGL = function(htmlCanvasID) {
+    var _initializeWebGL = function(htmlCanvasID) {
         var canvas = document.getElementById(htmlCanvasID);
         mGL = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
         if (mGL === null) {
             document.write("<br><b>WebGL is not supported!</b>");
-            return;
         }
-        // init the VertexBuffer
-        gEngine.VertexBuffer.initialize();
     };
+
+    var initializeEngineCore = function (htmlCanvasID) {
+        _initializeWebGL(htmlCanvasID);
+        gEngine.VertexBuffer.initialize();
+        gEngine.Input.initialize();
+    }
 
     // Clears the draw area and draws one square
     var clearCanvas = function(color) {
@@ -27,7 +30,7 @@ gEngine.Core = (function() {
 
     var mPublic = {
         getGL: getGL,
-        initializeWebGL: initializeWebGL,
+        initializeEngineCore: initializeEngineCore,
         clearCanvas: clearCanvas
     };
 

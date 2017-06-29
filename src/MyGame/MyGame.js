@@ -4,7 +4,7 @@ function MyGame(htmlCanvasID) {
     this.mWhiteSq = null;
     this.mRedSq = null;
 
-    gEngine.Core.initializeWebGL(htmlCanvasID);
+    gEngine.Core.initializeEngineCore(htmlCanvasID);
     this.initialize();
 };
 
@@ -39,17 +39,24 @@ MyGame.prototype.initialize = function () {
 MyGame.prototype.update = function () {
     var whiteform = this.mWhiteSq.getXform();
     var deltaX = 0.05;
-    if (whiteform.getXPos() > 30) {
-        whiteform.setPosition(10, 60);
-    }
-    whiteform.incXPosBy(deltaX);
-    whiteform.incRotationByDegree(1);
 
-    var redXform = this.mRedSq.getXform();
-    if (redXform.getWidth() > 5) {
-        redXform.setSize(2, 2);
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
+        if (whiteform.getXPos() > 30) {
+            whiteform.setPosition(10, 60);
+        }
+        whiteform.incXPosBy(deltaX);
     }
-    redXform.incSizeBy(0.05);
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
+        whiteform.incRotationByDegree(1);    
+    }
+
+    var redXform = this.mRedSq.getXform();    
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
+        if (redXform.getWidth() > 5) {
+            redXform.setSize(2, 2);
+        }
+        redXform.incSizeBy(0.05);
+    }
 };
 
 MyGame.prototype.draw = function () {
