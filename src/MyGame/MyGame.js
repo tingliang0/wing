@@ -1,11 +1,9 @@
-function MyGame(htmlCanvasID) {
+"use strict";
+
+function MyGame() {
     this.mCamera = null;
-    this.mConstColorShader = null;
     this.mWhiteSq = null;
     this.mRedSq = null;
-
-    gEngine.Core.initializeEngineCore(htmlCanvasID);
-    this.initialize();
 };
 
 MyGame.prototype.initialize = function () {
@@ -16,14 +14,10 @@ MyGame.prototype.initialize = function () {
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
 
-    this.mConstColorShader = new SimpleShader(
-        "src/GLSLShaders/SimpleVS.glsl",
-        "src/GLSLShaders/SimpleFS.glsl"
-    );
-
-    this.mWhiteSq = new Renderable(this.mConstColorShader);
+    var constColorShader = gEngine.DefaultResources.getConstColorShader();
+    this.mWhiteSq = new Renderable(constColorShader);
     this.mWhiteSq.setColor([1, 1, 1, 1]);
-    this.mRedSq = new Renderable(this.mConstColorShader);
+    this.mRedSq = new Renderable(constColorShader);
     this.mRedSq.setColor([1, 0, 0, 1]);
 
     this.mWhiteSq.getXform().setPosition(20, 60);
@@ -33,7 +27,7 @@ MyGame.prototype.initialize = function () {
     this.mRedSq.getXform().setPosition(20, 60);
     this.mRedSq.getXform().setSize(2, 2);
 
-    gEngine.GameLoop.start(this);
+    //gEngine.GameLoop.start(this);
 };
 
 MyGame.prototype.update = function () {

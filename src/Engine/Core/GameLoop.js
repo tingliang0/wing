@@ -1,8 +1,10 @@
-var gEngine = gEngine || {};
-var kFPS = 60;              // Frames per second
-var kMPF = 1000 / kFPS;     // Milleseconds per frame.
+"use strict";
 
-gEngine.GameLoop = (function () {
+var gEngine = gEngine || {};
+
+gEngine.GameLoop = (function() {
+    var kFPS = 60; // Frames per second
+    var kMPF = 1000 / kFPS; // Milleseconds per frame.
     var mPreviousTime;
     var mLagTime;
     var mCurrentTime;
@@ -11,10 +13,10 @@ gEngine.GameLoop = (function () {
     var mIsLoopRunning = false;
     var mMyGame = null;
 
-    var _runLoop = function () {
+    var _runLoop = function() {
         if (mIsLoopRunning) {
             // Step A: set up for next call to _runLoop and update input
-            requestAnimationFrame(function () {
+            requestAnimationFrame(function() {
                 _runLoop.call(mMyGame);
             });
 
@@ -27,29 +29,29 @@ gEngine.GameLoop = (function () {
             // Step C: update the game the appropriate of times.
             //         Update only every Milliseconds per frame.
             //         If lag larger then update frames, update until caught up.
-            while((mLagTime >= kMPF) && mIsLoopRunning) {
+            while ((mLagTime >= kMPF) && mIsLoopRunning) {
                 gEngine.Input.update();
-                this.update();      // call MyGame.update()
+                this.update(); // call MyGame.update()
                 mLagTime -= kMPF;
             }
 
             // Step D: now let's draw
-            this.draw();           // call MyGame.draw()
+            this.draw(); // call MyGame.draw()
         }
     };
 
-    var start = function (myGame) {
+    var start = function(myGame) {
         mMyGame = myGame;
 
         // Step A: reset frame time
         mPreviousTime = Date.now();
         mLagTime = 0.0;
-        
+
         // Step B: rember that loop is now running
         mIsLoopRunning = true;
 
         // Step C: request _runLoop to start when loading is done
-        requestAnimationFrame(function () {
+        requestAnimationFrame(function() {
             _runLoop.call(mMyGame);
         });
     };
