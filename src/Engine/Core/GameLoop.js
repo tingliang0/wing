@@ -40,19 +40,20 @@ gEngine.GameLoop = (function() {
         }
     };
 
-    var start = function(myGame) {
-        mMyGame = myGame;
-
-        // Step A: reset frame time
+    var _startLoop = function () {
         mPreviousTime = Date.now();
         mLagTime = 0.0;
-
-        // Step B: rember that loop is now running
         mIsLoopRunning = true;
-
-        // Step C: request _runLoop to start when loading is done
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             _runLoop.call(mMyGame);
+        })
+    };
+
+    var start = function(myGame) {
+        mMyGame = myGame;
+        gEngine.ResourceMap.setLoadCompleteCallback(function () {
+            mMyGame.initialize();
+            _startLoop();
         });
     };
 
