@@ -1,20 +1,19 @@
-"use strict";
-
-function MyGame() {
-    this.kSceneFile = "assets/scene.xml";
+function BlueLevel() {
+    this.kSceneFile = "assets/BlueLevel.xml";
     this.mSqSet = [];
-    this.mCamera = null;
+    this.mCamera;
 }
 
-gEngine.Core.inheritPrototype(MyGame, Scene);
+gEngine.Core.inheritPrototype(BlueLevel, Scene);
 
-MyGame.prototype.initialize = function() {
+
+BlueLevel.prototype.initialize = function() {
     let sceneParser = new SceneFileParser(this.kSceneFile);
     this.mCamera = sceneParser.parseCamera();
     sceneParser.parseSquares(this.mSqSet);
 };
 
-MyGame.prototype.update = function() {
+BlueLevel.prototype.update = function() {
     var xform = this.mSqSet[0].getXform();
     var deltaX = 0.05;
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
@@ -26,7 +25,7 @@ MyGame.prototype.update = function() {
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
         xform.incRotationByDegree(1);
     }
-    var xform = this.mSqSet[1].getXform();
+    xform = this.mSqSet[1].getXform();
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
         if (xform.getWidth() > 5) {
             xform.setSize(2, 2);
@@ -41,7 +40,7 @@ MyGame.prototype.update = function() {
     }
 };
 
-MyGame.prototype.draw = function() {
+BlueLevel.prototype.draw = function() {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
     this.mCamera.setupViewProjection();
     var i;
@@ -50,11 +49,12 @@ MyGame.prototype.draw = function() {
     }
 };
 
-MyGame.prototype.loadScene = function() {
+BlueLevel.prototype.loadScene = function() {
     gEngine.TextFileLoader.loadTextFile(this.kSceneFile, gEngine.TextFileLoader.eTextFileType.eXMLFile);
 };
 
-MyGame.prototype.unloadScene = function() {
-    var nextLevel = new BlueLevel();
+BlueLevel.prototype.unloadScene = function() {
+    gEngine.TextFileLoader.unloadTextFile(this.kSceneFile);
+    var nextLevel = new MyGame();
     gEngine.Core.startScene(nextLevel);
 };
