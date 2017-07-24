@@ -10,11 +10,25 @@ gEngine.Core = (function() {
 
     var _initializeWebGL = function(htmlCanvasID) {
         var canvas = document.getElementById(htmlCanvasID);
-        mGL = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+
+        // binds webgl to the Canvas on the web-page to the variable mGL
+        mGL = canvas.getContext("webgl", {
+            alpha: false
+        }) || canvas.getContext("experimental-webgl", {
+            alpha: false
+        });
+
         if (mGL === null) {
             document.write("<br><b>WebGL is not supported!</b>");
             return;
         }
+
+        // Allow transperency with textures
+        mGL.blendFunc(mGL.SRC_ALPHA, mGL.ONE_MINUS_SRC_ALPHA);
+        mGL.enable(mGL.BLEND);
+
+        // Set images to flip the y axis to match the texture coordinate space.
+        mGL.pixelStorei(mGL.UNPACK_FLIP_Y_WEBGL, true); //  defines the origin of the uv coordinate to be at the lower-left corner.
     };
 
     var startScene = function(myGame) {

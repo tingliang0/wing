@@ -28,9 +28,11 @@ class SimpleShader {
         this.mModelTransform = gl.getUniformLocation(this.mCompiledShader, "uModelTransform");
         this.mViewProjTransform = gl.getUniformLocation(this.mCompiledShader, "uViewProjTransform");
     }
+
     _compileShader(filePath, shaderType) {
         var gl = gEngine.Core.getGL();
-        var shaderSource = null, compiledShader = null;
+        var shaderSource = null,
+            compiledShader = null;
         shaderSource = gEngine.ResourceMap.retrieveAsset(filePath);
         if (shaderSource === null) {
             alert("WARNING: Loading of: " + filePath + " Failed!");
@@ -45,10 +47,12 @@ class SimpleShader {
         }
         return compiledShader;
     }
+
     loadObjectTransform(modelTransform) {
         var gl = gEngine.Core.getGL();
         gl.uniformMatrix4fv(this.mModelTransform, false, modelTransform);
     }
+
     activateShader(pixelColor, vpMatrix) {
         var gl = gEngine.Core.getGL();
         gl.useProgram(this.mCompiledShader);
@@ -60,7 +64,3 @@ class SimpleShader {
         return this.mCompiledShader;
     }
 }
-
-
-
-
