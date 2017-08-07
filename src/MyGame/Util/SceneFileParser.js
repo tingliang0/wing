@@ -53,3 +53,26 @@ SceneFileParser.prototype.parseSquares = function(sqSet) {
         sqSet.push(sq);
     }
 };
+
+SceneFileParser.prototype.parseTextureSquares = function(sqSet) {
+    var elm = this._getElm("TextureSquare");
+    var i, j, x, y, h, r, c, t, sq;
+    for (i = 0; i < elm.length; i++) {
+        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
+        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
+        w = Number(elm.item(i).attributes.getNamedItem("Width").value);
+        h = Number(elm.item(i).attributes.getNamedItem("Height").value);
+        r = Number(elm.item(i).attributes.getNamedItem("Rotation").value);
+        c = elm.item(i).attributes.getNamedItem("Color").value.split(" ");
+        t = elm.item(i).attributes.getNamedItem("Texture").value;
+        sq = new TextureRenderable(t);
+        for (j = 0; j < 4; j++) {
+            c[j] = Number(c[j]);
+        }
+        sq.setColor(c);
+        sq.getXform().setPosition(x, y);
+        sq.getXform().setRotationInDegree(r);
+        sq.getXform().setSize(w, h);
+        sqSet.push(sq);
+    }
+};

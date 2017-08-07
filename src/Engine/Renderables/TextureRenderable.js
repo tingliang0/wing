@@ -11,4 +11,12 @@ class TextureRenderable extends Renderable {
         //Renderable.prototype.draw.call(this, vpMatrix);
         super.draw(vpMatrix);
     }
+
+    getTexture() {
+        return this.myTexture;
+    }
+
+    setTexture(t) {
+        this.myTexture = t;
+    }
 }
