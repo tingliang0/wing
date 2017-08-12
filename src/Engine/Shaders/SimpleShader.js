@@ -11,6 +11,7 @@ class SimpleShader {
         var gl = gEngine.Core.getGL();
         var vertexShader = this._compileShader(vertexShaderPath, gl.VERTEX_SHADER);
         var fragmentShader = this._compileShader(fragmentShaderPath, gl.FRAGMENT_SHADER);
+        console.log(vertexShaderPath, fragmentShaderPath);
         // link the shaders into a program
         this.mCompiledShader = gl.createProgram();
         gl.attachShader(this.mCompiledShader, vertexShader);
@@ -60,6 +61,7 @@ class SimpleShader {
         gl.enableVertexAttribArray(this.mShaderVertexPositionAttribute);
         gl.uniform4fv(this.mPixelColor, pixelColor);
     }
+
     getShader() {
         return this.mCompiledShader;
     }

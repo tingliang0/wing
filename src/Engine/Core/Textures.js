@@ -9,6 +9,16 @@ class TextureInfo {
 
 var gEngine = gEngine || {};
 gEngine.Textures = (function() {
+    var _processLoadedImage = function(textureName, image) {
+        var gl = gEngine.Core.getGL();
+        var textureID = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, textureID);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+        gl.generateMipmap(gl.TEXTURE_2D);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        var texInfo = new TextureInfo(textureName, image.naturalWidth, image.naturalHeight, textureID);
+        gEngine.ResourceMap.asyncLoadCompleted(textureName, texInfo);
+    };
 
     var loadTexture = function(textureName) {
         if (!(gEngine.ResourceMap.isAssetLoaded(textureName))) {
@@ -30,16 +40,6 @@ gEngine.Textures = (function() {
         gEngine.ResourceMap.unloadAsset(textureName);
     };
 
-    var _processLoadedImage = function(textureName, image) {
-        var gl = gEngine.Core.getGL();
-        var textureID = gl.createTexture();
-        gl.bindTexture(gl.TEXTURE_2D, textureID);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-        gl.generateMipmap(gl.TEXTURE_2D);
-        gl.bindTexture(gl.TEXTURE_2D, null);
-        var texInfo = new TextureInfo(textureName, image.naturalWidth, image.naturalHeight, textureID);
-        gEngine.ResourceMap.asyncLoadCompleted(textureName, texInfo);
-    };
 
     var activateTexture = function(textureName) {
         var gl = gEngine.Core.getGL();
