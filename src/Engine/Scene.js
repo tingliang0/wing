@@ -1,23 +1,8 @@
-function Scene() {
-
+class Scene {
+    constructor() {}
+    initialize() {}
+    loadScene() {}
+    unloadScene() {}
+    update() {}
+    draw() {}
 }
-
-Scene.prototype.initialize = function() {
-
-};
-
-Scene.prototype.loadScene = function() {
-
-};
-
-Scene.prototype.unloadScene = function() {
-
-};
-
-Scene.prototype.update = function() {
-
-};
-
-Scene.prototype.draw = function() {
-
-};
