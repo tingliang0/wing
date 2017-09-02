@@ -75,5 +75,4 @@ SceneFileParser.prototype.parseTextureSquares = function(sqSet) {
         sq.getXform().setSize(w, h);
         sqSet.push(sq);
     }
-    console.log('=======', sqSet.length);
 };

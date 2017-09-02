@@ -49,13 +49,13 @@ class BlueLevel {
         gEngine.TextFileLoader.loadTextFile(this.kSceneFile, gEngine.TextFileLoader.eTextFileType.eXMLFile);
         // gEngine.AudioClips.loadAudio(this.kBgClip);
         // gEngine.AudioClips.loadAudio(this.kCue);
-        // gEngine.Textures.loadTexture(this.kPortal);
-        // gEngine.Textures.loadTexture(this.kCollector);
+        gEngine.Textures.loadTexture(this.kPortal);
+        gEngine.Textures.loadTexture(this.kCollector);
     }
     unloadScene() {
         gEngine.AudioClips.stopBackgroundAudio();
-        gEngine.AudioClips.unloadAudio(this.kBgClip);
-        gEngine.AudioClips.unloadAudio(this.kCue);
+        // gEngine.AudioClips.unloadAudio(this.kBgClip);
+        // gEngine.AudioClips.unloadAudio(this.kCue);
         gEngine.TextFileLoader.unloadTextFile(this.kSceneFile);
         gEngine.Textures.unloadTexture(this.kPortal);
         gEngine.Textures.unloadTexture(this.kCollector);

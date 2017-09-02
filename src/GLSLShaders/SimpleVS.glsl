@@ -1,4 +1,3 @@
-// This is the vertex shader 
 attribute vec3 aSquareVertexPosition;  // Vertex shader expects one vertex position
 
 // to transform the vertex position
