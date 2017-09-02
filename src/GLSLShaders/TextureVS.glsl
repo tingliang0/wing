@@ -2,7 +2,7 @@ attribute vec3 aSquareVertexPosition;   // the xyz position of the vertex
 attribute vec2 aTextureCoordinate;      // the uv coordinate of the vertex
 
 // texture coordinate that will map the entrie iamge to the entire square
-attribute vec2 vTexCoord;
+varying vec2 vTexCoord;
 
 // to transform the vertex position
 uniform mat4 uModelTransform;

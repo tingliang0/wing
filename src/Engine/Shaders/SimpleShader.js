@@ -44,7 +44,7 @@ class SimpleShader {
         gl.shaderSource(compiledShader, shaderSource);
         gl.compileShader(compiledShader);
         if (!gl.getShaderParameter(compiledShader, gl.COMPILE_STATUS)) {
-            alert("A shader compiling error occurred: " + gl.getShaderInfoLog(compiledShader));
+            alert("A shader compiling error occurred, path: " + filePath + " error " + gl.getShaderInfoLog(compiledShader));
         }
         return compiledShader;
     }
