@@ -2,6 +2,7 @@
 
 class MyGame extends Scene {
     constructor() {
+        super();
         this.kFontImage = "assets/Consolas-72.png";
         this.kMinionSprite = "assets/minion_sprite.png";
         this.mCamera = null;
@@ -23,7 +24,7 @@ class MyGame extends Scene {
     }
 
     initialize() {
-        this.mCamera = new mCamera(
+        this.mCamera = new Camera(
             vec2.fromValues(20, 60),
             20, [20, 40, 600, 300]
         );
@@ -33,7 +34,7 @@ class MyGame extends Scene {
         this.mPortal.setColor([1, 0, 0, 0.2]);
         this.mPortal.getXform().setPosition(25, 60);
         this.mPortal.getXform().setSize(3, 3);
-        this.mPortal.setElementPixelPositions(130, 130, 0, 180);
+        this.mPortal.setElementPixelPositions(130, 310, 0, 180);
 
         this.mCollector = new SpriteRenderable(this.kMinionSprite);
         this.mCollector.setColor([0, 0, 0, 0]);
@@ -102,7 +103,7 @@ class MyGame extends Scene {
 
         var texCoord = this.mMinion.getElementUVCoordinateArray();
         var t = texCoord[SpriteRenderable.eTexCoordArray.eTop] - deltaT;
-        var l = texCoord[ScriptProcessorNode.eTexCoordArray.eLeft] + deltaT;
+        var l = texCoord[SpriteRenderable.eTexCoordArray.eLeft] + deltaT;
         if (l > 0.5) {
             l = 0;
         }

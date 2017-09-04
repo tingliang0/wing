@@ -14,6 +14,12 @@ class SpriteShader extends TextureShader {
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(initTexCoord), gl.DYNAMIC_DRAW);
     }
 
+    setTextureCoordinate(texCoord) {
+        var gl = gEngine.Core.getGL();
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.mTexCoordBuffer);
+        gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(texCoord));
+    }
+
     activateShader(pixelColor, vpMatrix) {
         super.activateShader(pixelColor, vpMatrix);
         var gl = gEngine.Core.getGL();
