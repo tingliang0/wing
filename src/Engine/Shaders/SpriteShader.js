@@ -27,4 +27,10 @@ class SpriteShader extends TextureShader {
         gl.vertexAttribPointer(this.mShaderTextureCoorAttribute, 2, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(this.mShaderTextureCoorAttribute);
     }
+
+    cleanUp() {
+        var gl = gEngine.Core.getGL();
+        gl.deleteBuffer(this.mTexCoordBuffer);
+        super.cleanUp();
+    }
 }

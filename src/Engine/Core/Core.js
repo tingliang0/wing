@@ -59,12 +59,18 @@ gEngine.Core = (function() {
         subClass.prototype = prototype;
     };
 
+    var cleanUp = function() {
+        gEngine.VertexBuffer.cleanUp();
+        gEngine.DefaultResources.cleanUp();
+    };
+
     var mPublic = {
         getGL: getGL,
         initializeEngineCore: initializeEngineCore,
         clearCanvas: clearCanvas,
         startScene: startScene,
-        inheritPrototype: inheritPrototype
+        inheritPrototype: inheritPrototype,
+        cleanUp: cleanUp
     };
 
     return mPublic;

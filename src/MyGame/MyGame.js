@@ -3,187 +3,97 @@
 class MyGame extends Scene {
     constructor() {
         super();
-        this.kFontImage = "assets/Consolas-72.png";
-        this.kMinionSprite = "assets/minion_sprite.png";
+
         this.mCamera = null;
-        this.mHero = null;
-        this.mPortal = null;
-        this.mCollector = null;
-        this.mFontImage = null;
-        //this.mMinion = null;
-        this.mRightMinion = null;
-        this.mLeftMinion = null;
+        this.mTextSysFont = null;
+        this.mTextToWork = null;
+        this.kFontCon16 = "assets/fonts/Consolas-16"; // notice font names do not need extensions!
+        this.kFontCon24 = "assets/fonts/Consolas-24";
+        this.kFontCon32 = "assets/fonts/Consolas-32"; // this is also the default system font
+        this.kFontCon72 = "assets/fonts/Consolas-72";
+        this.kFontSeg96 = "assets/fonts/Segment7-96";
     }
 
     loadScene() {
-        gEngine.Textures.loadTexture(this.kFontImage);
-        gEngine.Textures.loadTexture(this.kMinionSprite);
+        gEngine.Fonts.loadFont(this.kFontCon16);
+        gEngine.Fonts.loadFont(this.kFontCon24);
+        gEngine.Fonts.loadFont(this.kFontCon32);
+        gEngine.Fonts.loadFont(this.kFontCon72);
+        gEngine.Fonts.loadFont(this.kFontCon96);
     }
 
     unloadScene() {
-        gEngine.Textures.unloadTexture(this.kFontImage);
-        gEngine.Textures.unloadTexture(this.kMinionSprite);
+        gEngine.Fonts.unloadFont(this.kFontCon16);
+        gEngine.Fonts.unloadFont(this.kFontCon24);
+        gEngine.Fonts.unloadFont(this.kFontCon32);
+        gEngine.Fonts.unloadFont(this.kFontCon72);
+        gEngine.Fonts.unloadFont(this.kFontCon96);
+    }
+
+    _initText(font, posX, posY, color, textH) {
+        font.setColor(color);
+        font.getXform().setPosition(posX, posY);
+        font.setTextHeight(textH);
     }
 
     initialize() {
         this.mCamera = new Camera(
-            vec2.fromValues(20, 60),
+            vec2.fromValues(50, 33),
             20, [20, 40, 600, 300]
         );
         this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
 
-        this.mPortal = new SpriteRenderable(this.kMinionSprite);
-        this.mPortal.setColor([1, 0, 0, 0.2]);
-        this.mPortal.getXform().setPosition(25, 60);
-        this.mPortal.getXform().setSize(3, 3);
-        this.mPortal.setElementPixelPositions(130, 310, 0, 180);
+        this.mTextSysFont = new FontRenderable("System Font: in Red");
+        this._initText(this.mTextSysFont, 50, 60, [1, 0, 0, 1], 3);
 
-        this.mCollector = new SpriteRenderable(this.kMinionSprite);
-        this.mCollector.setColor([0, 0, 0, 0]);
-        this.mCollector.getXform().setPosition(15, 60);
-        this.mCollector.getXform().setSize(3, 3);
-        this.mCollector.setElementPixelPositions(315, 495, 0, 180);
+        this.mTextCon16 = new FontRenderable("Consolas 16: in black");
+        this.mTextCon16.setFont(this.kFontCon16);
+        this._initText(this.mTextCon16, 50, 55, [0, 0, 0, 1], 2);
 
-        this.mFontImage = new SpriteRenderable(this.kFontImage);
-        this.mFontImage.setColor([1, 1, 1, 0]);
-        this.mFontImage.getXform().setPosition(13, 62);
-        this.mFontImage.getXform().setSize(4, 4);
+        this.mTextCon24 = new FontRenderable("Consolas 24: in black");
+        this.mTextCon24.setFont(this.kFontCon24);
+        this._initText(this.mTextCon24, 50, 50, [0, 0, 0, 1], 3);
 
-        // this.mMinion = new SpriteRenderable(this.kMinionSprite);
-        // this.mMinion.setColor([1, 1, 1, 0]);
-        // this.mMinion.getXform().setPosition(26, 56);
-        // this.mMinion.getXform().setSize(5, 2.5);
+        this.mTextCon32 = new FontRenderable("Consolas 32: in white");
+        this.mTextCon32.setFont(this.kFontCon32);
+        this._initText(this.mTextCon32, 40, 40, [1, 1, 1, 1], 4);
 
-        this.mHero = new SpriteRenderable(this.kMinionSprite);
-        this.mHero.setColor([1, 1, 1, 0]);
-        this.mHero.getXform().setPosition(20, 60);
-        this.mHero.getXform().setSize(2, 3);
-        this.mHero.setElementPixelPositions(0, 120, 0, 180);
+        this.mTextCon72 = new FontRenderable("Consolas 72: in blue");
+        this.mTextCon72.setFont(this.kFontCon72);
+        this._initText(this.mTextCon72, 30, 30, [0, 0, 1, 1], 6);
 
-        this.mRightMinion = new SpriteAnimateRenderable(this.kMinionSprite);
-        this.mRightMinion.setColor([1, 1, 1, 0]);
-        this.mRightMinion.getXform().setPosition(26, 56.5);
-        this.mRightMinion.getXform().setSize(4, 3.2);
-        this.mRightMinion.setSpriteSequence(512, 0, 204, 164, 5, 0);
-        this.mRightMinion.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
-        this.mRightMinion.setAnimationSpeed(50);
-
-        // the left minion
-        this.mLeftMinion = new SpriteAnimateRenderable(this.kMinionSprite);
-        this.mLeftMinion.setColor([1, 1, 1, 0]);
-        this.mLeftMinion.getXform().setPosition(15, 56.5);
-        this.mLeftMinion.getXform().setSize(4, 3.2);
-        this.mLeftMinion.setSpriteSequence(348, 0, // first element pixel position: top-right 164 from 512 is top of image, 0 is right of image
-            204, 164, // widthxheight in pixels
-            5, // number of elements in this sequence
-            0); // horizontal padding in between
-        this.mLeftMinion.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
-        this.mLeftMinion.setAnimationSpeed(50);
+        this.mTextSeg96 = new FontRenderable("Segment7-92");
+        this.mTextSeg96.setFont(this.kFontSeg96);
+        this._initText(this.mTextSeg96, 30, 15, [1, 1, 0, 1], 7);
     }
 
     update() {
-        var deltaX = 0.05;
-        var xform = this.mHero.getXform();
-
-        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
-            xform.incXPosBy(deltaX);
-            if (xform.getXPos() > 30) {
-                xform.setPosition(12, 60);
-            }
+        // choose which text to work on
+        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Zero)) {
+            this.mTextToWork = this.mTextCon16;
         }
-
-        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
-            xform.incXPosBy(-deltaX);
-            if (xform.getXPos() < 11) {
-                xform.setXPos(20);
-            }
-        }
-
-        var c = this.mPortal.getColor();
-        var ca = c[3] + deltaX;
-        if (ca > 1) {
-            ca = 0;
-        }
-        c[3] = ca;
-
-        var deltaT = 0.001;
-        var texCoord = this.mFontImage.getElementUVCoordinateArray();
-        var b = texCoord[SpriteRenderable.eTexCoordArray.eBottom] + deltaT;
-        var r = texCoord[SpriteRenderable.eTexCoordArray.eRight] - deltaT;
-        if (b > 1.0) {
-            b = 0;
-        }
-        if (r < 0) {
-            r = 1.0;
-        }
-        this.mFontImage.setElementUVCoordinate(
-            texCoord[SpriteRenderable.eTexCoordArray.eLeft],
-            r,
-            b,
-            texCoord[SpriteRenderable.eTexCoordArray.eTop]
-        );
-
-        this.mRightMinion.updateAnimation();
-        this.mLeftMinion.updateAnimation();
-
-        // var texCoord = this.mMinion.getElementUVCoordinateArray();
-        // var t = texCoord[SpriteRenderable.eTexCoordArray.eTop] - deltaT;
-        // var l = texCoord[SpriteRenderable.eTexCoordArray.eLeft] + deltaT;
-        // if (l > 0.5) {
-        //     l = 0;
-        // }
-        // if (t < 0.5) {
-        //     t = 1.0;
-        // }
-        // this.mMinion.setElementUVCoordinate(
-        //     l,
-        //     texCoord[SpriteRenderable.eTexCoordArray.eRight],
-        //     texCoord[SpriteRenderable.eTexCoordArray.eBottom],
-        //     t
-        // );
-
-        // Animate left on the sprite sheet
         if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One)) {
-            this.mRightMinion.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateLeft);
-            this.mLeftMinion.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateLeft);
+            this.mTextToWork = this.mTextCon24;
         }
-
-        // swing animation 
-        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Two)) {
-            this.mRightMinion.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateSwing);
-            this.mLeftMinion.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateSwing);
-        }
-
-        // Animate right on the sprite sheet
         if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three)) {
-            this.mRightMinion.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
-            this.mLeftMinion.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
+            this.mTextToWork = this.mTextCon32;
         }
-
-        // decrease the duration of showing each sprite element, thereby speeding up the animation
         if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Four)) {
-            this.mRightMinion.incAnimationSpeed(-2);
-            this.mLeftMinion.incAnimationSpeed(-2);
-        }
-
-        // increase the duration of showing each sprite element, thereby slowing down the animation
-        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Five)) {
-            this.mRightMinion.incAnimationSpeed(2);
-            this.mLeftMinion.incAnimationSpeed(2);
+            this.mTextToWork = this.mTextCon72;
         }
     }
 
     draw() {
-        gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
+        gEngine.Core.clearCanvas([0.5, 0.5, 0.5, 1.0]);
         this.mCamera.setupViewProjection();
-
-        this.mPortal.draw(this.mCamera.getVPMatrix());
-        this.mCollector.draw(this.mCamera.getVPMatrix());
-        this.mHero.draw(this.mCamera.getVPMatrix());
-        this.mFontImage.draw(this.mCamera.getVPMatrix());
-        // this.mMinion.draw(this.mCamera.getVPMatrix());
-        this.mRightMinion.draw(this.mCamera.getVPMatrix());
-        this.mLeftMinion.draw(this.mCamera.getVPMatrix());
+        console.log('1111111');
+        // drawing the text output
+        this.mTextSysFont.draw(this.mCamera.getVPMatrix());
+        this.mTextCon16.draw(this.mCamera.getVPMatrix());
+        this.mTextCon24.draw(this.mCamera.getVPMatrix());
+        this.mTextCon32.draw(this.mCamera.getVPMatrix());
+        this.mTextCon72.draw(this.mCamera.getVPMatrix());
+        this.mTextSeg96.draw(this.mCamera.getVPMatrix());
     }
 
 }
