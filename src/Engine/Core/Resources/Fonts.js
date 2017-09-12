@@ -19,7 +19,7 @@ gEngine.Fonts = (function() {
         var fontName = fontInfoSourceString.slice(0, -4);
         var fontInfo = gEngine.ResourceMap.retrieveAsset(fontInfoSourceString);
         fontInfo.FontImage = fontName + ".png";
-        gEngine.ResourceMap.asyncLoadRequested(fontName, fontInfo);
+        gEngine.ResourceMap.asyncLoadCompleted(fontName, fontInfo);
     };
 
     var loadFont = function(fontName) {
