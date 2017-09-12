@@ -44,7 +44,7 @@ gEngine.Fonts = (function() {
             var fontInfoSourceString = fontName + ".fnt";
             var textureSourceString = fontName + ".png";
             gEngine.Textures.unloadTexture(textureSourceString);
-            gEngine.Textures.unloadTextFile(fontInfoSourceString);
+            gEngine.TextFileLoader.unloadTextFile(fontInfoSourceString);
         }
     };
 

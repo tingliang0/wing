@@ -71,6 +71,7 @@ gEngine.DefaultResources = (function() {
         getConstColorShader: getConstColorShader,
         getTextureShader: getTextureShader,
         getSpriteShader: getSpriteShader,
+        getDefaultFont: getDefaultFont,
         cleanUp: cleanUp
     };
 
