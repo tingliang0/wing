@@ -54,10 +54,10 @@ class SimpleShader {
         gl.uniformMatrix4fv(this.mModelTransform, false, modelTransform);
     }
 
-    activateShader(pixelColor, vpMatrix) {
+    activateShader(pixelColor, aCamera) {
         var gl = gEngine.Core.getGL();
         gl.useProgram(this.mCompiledShader);
-        gl.uniformMatrix4fv(this.mViewProjTransform, false, vpMatrix);
+        gl.uniformMatrix4fv(this.mViewProjTransform, false, aCamera.getVPMatrix());
         gl.enableVertexAttribArray(this.mShaderVertexPositionAttribute);
         gl.uniform4fv(this.mPixelColor, pixelColor);
     }

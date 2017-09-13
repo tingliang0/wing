@@ -8,9 +8,9 @@ class TextureRenderable extends Renderable {
         this.setShader(gEngine.DefaultResources.getTextureShader());
         this.mTexture = myTexture; // texture for this object, cannot be a "null"
     }
-    draw(vpMatrix) {
+    draw(aCamera) {
         gEngine.Textures.activateTexture(this.mTexture);
-        super.draw(vpMatrix);
+        super.draw(aCamera);
     }
     getTexture() {
         return this.mTexture;

@@ -34,9 +34,9 @@ class SpriteRenderable extends TextureRenderable {
         ];
     }
 
-    draw(pixelColor, vpMatrix) {
+    draw(pixelColor, aCamera) {
         this.mShader.setTextureCoordinate(this.getElementUVCoordinateArray());
-        super.draw(pixelColor, vpMatrix);
+        super.draw(pixelColor, aCamera);
     }
 }
 

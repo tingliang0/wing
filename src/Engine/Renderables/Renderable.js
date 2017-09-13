@@ -5,9 +5,9 @@ class Renderable {
         this.mXform = new Transform(); // transform operator for the object
     }
 
-    draw(vpMatrix) {
+    draw(aCamera) {
         var gl = gEngine.Core.getGL();
-        this.mShader.activateShader(this.mColor, vpMatrix);
+        this.mShader.activateShader(this.mColor, aCamera);
         this.mShader.loadObjectTransform(this.mXform.getXform());
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }

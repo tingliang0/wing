@@ -6,7 +6,7 @@ class FontRenderable {
         this.mText = aString;
     }
 
-    draw(vpMatrix) {
+    draw(aCamera) {
         var widthOfOneChar = this.mXform.getWidth() / this.mText.length;
         var heightOfOneChar = this.mXform.getHeight();
         var yPos = this.mXform.getYPos();
@@ -23,7 +23,7 @@ class FontRenderable {
             xOffset = widthOfOneChar * charInfo.mCharWidthOffset * 0.5;
             yOffset = heightOfOneChar * charInfo.mCharHeightOffset * 0.5;
             this.mOneChar.getXform().setPosition(xPos - xOffset, yPos - yOffset);
-            this.mOneChar.draw(vpMatrix);
+            this.mOneChar.draw(aCamera);
             xPos += widthOfOneChar;
         }
     }
