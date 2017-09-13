@@ -7,7 +7,7 @@
 </head>
 
 <body onload="
-    var myGame = new GameOver();
+    var myGame = new MyGame();
     gEngine.Core.initializeEngineCore('GLCanvas', myGame);
     ">
     <canvas id="GLCanvas" width="640" height="480">
@@ -25,6 +25,8 @@
     <script type="text/javascript" src="src/Engine/Core/Resources/ResourceMap.js"></script>
     <script type="text/javascript" src="src/Engine/Core/Resources/TextFileLoader.js"></script>
     <script type="text/javascript" src="src/Engine/Core/Resources/AudioClips.js"></script>
+    <script type="text/javascript" src="src/Engine/GameObjects/GameObject.js"></script>
+    <script type="text/javascript" src="src/Engine/GameObjects/GameObjectSet.js"></script>
     <script type="text/javascript" src="src/Engine/Scene.js"></script>
 
     <script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
@@ -42,8 +44,11 @@
     <script type="text/javascript" src="src/MyGame/Util/SceneFileParser.js"></script>
     <!-- util -->
     <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
-    <script type="text/javascript" src="src/MyGame/GameOver.js"></script>
+    <!-- <script type="text/javascript" src="src/MyGame/GameOver.js"></script> -->
     <!-- <script type="text/javascript" src="src/MyGame/BlueLevel.js"></script> -->
+    <script type="text/javascript" src="src/MyGame/Objects/DyePack.js"></script>
+    <script type="text/javascript" src="src/MyGame/Objects/Hero.js"></script>
+    <script type="text/javascript" src="src/MyGame/Objects/Minion.js"></script>
 </body>
 
 </html>

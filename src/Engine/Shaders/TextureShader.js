@@ -8,7 +8,7 @@ class TextureShader extends SimpleShader {
     }
 
     activateShader(pixelColor, aCamera) {
-        super.activateShader(pixelColor, aCamera.getVPMatrix());
+        super.activateShader(pixelColor, aCamera);
         var gl = gEngine.Core.getGL();
         gl.bindBuffer(gl.ARRAY_BUFFER, gEngine.VertexBuffer.getGLTexCoordRef());
         gl.enableVertexAttribArray(this.mShaderTextureCoorAttribute);

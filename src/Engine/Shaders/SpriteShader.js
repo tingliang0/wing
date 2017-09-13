@@ -21,7 +21,7 @@ class SpriteShader extends TextureShader {
     }
 
     activateShader(pixelColor, aCamera) {
-        super.activateShader(pixelColor, aCamera.getVPMatrix());
+        super.activateShader(pixelColor, aCamera);
         var gl = gEngine.Core.getGL();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.mTexCoordBuffer);
         gl.vertexAttribPointer(this.mShaderTextureCoorAttribute, 2, gl.FLOAT, false, 0, 0);
