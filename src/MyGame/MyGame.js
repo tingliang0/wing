@@ -49,7 +49,7 @@ class MyGame extends Scene {
     }
 
     draw() {
-        gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
+        gEngine.Core.clearCanvas([0.5, 0.5, 0.5, 1.0]);
         this.mCamera.setupViewProjection();
 
         this.mHero.draw(this.mCamera);
