@@ -1,14 +1,16 @@
 class Brain extends GameObject {
     constructor(spriteTexture) {
         var kDeltaDegree = 1;
-        var kDeltaRad = Math.PI * this.kDeltaDegree / 180;
+        var kDeltaRad = Math.PI * kDeltaDegree / 180;
         var kDeltaSpeed = 0.01;
         var mBrain = new SpriteRenderable(spriteTexture);
         mBrain.setColor([1, 1, 1, 0]);
         mBrain.getXform().setPosition(50, 10);
         mBrain.getXform().setSize(3, 5.4);
         mBrain.setElementPixelPositions(600, 700, 0, 180);
+
         super(mBrain);
+
         this.kDeltaDegree = kDeltaDegree;
         this.kDeltaRad = kDeltaRad;
         this.kDeltaSpeed = kDeltaSpeed;
@@ -17,7 +19,7 @@ class Brain extends GameObject {
     }
 
     update() {
-        super();
+        //super.update();
         var xf = this.getXform();
         var fdir = this.getCurrentFrontDir();
         if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {

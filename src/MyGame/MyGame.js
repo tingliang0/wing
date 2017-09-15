@@ -59,7 +59,7 @@ class MyGame extends Scene {
         if (gEngine.Input.isKeyClicked(gEngine.Input.keys.K)) {
             this.mMode = 'K';
         }
-        this.msg.setText(msg + this.mMode);
+        this.mMsg.setText(msg + this.mMode);
     }
 
     draw() {
