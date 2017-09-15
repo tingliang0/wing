@@ -17,7 +17,7 @@ class FontRenderable {
             charInfo = gEngine.Fonts.getCharInfo(this.mFont, aChar);
             this.mOneChar.setElementUVCoordinate(charInfo.mTexCoordLeft, charInfo.mTexCoordRight, charInfo.mTexCoordBottom, charInfo.mTexCoordTop);
             xSize = widthOfOneChar * charInfo.mCharWidth;
-            ySize = widthOfOneChar * charInfo.mCharHeight;
+            ySize = heightOfOneChar * charInfo.mCharHeight;
             this.mOneChar.getXform().setSize(xSize, ySize);
 
             xOffset = widthOfOneChar * charInfo.mCharWidthOffset * 0.5;
