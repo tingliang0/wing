@@ -4,15 +4,18 @@ class MyGame extends Scene {
     constructor() {
         super();
         this.kMinionSprite = "assets/minion_sprite.png";
+        this.kMinionCollector = "assets/minion_collector.png";
+        this.kMinionPortal = "assets/minion_portal.png";
         this.mCamera = null;
-        this.mHero = null;
         this.mMsg = null;
-        this.mBrain = null;
-        this.mMode = 'H';
+        this.mCollector = null;
+        this.mPortal = null;
     }
 
     loadScene() {
         gEngine.Textures.loadTexture(this.kMinionSprite);
+        gEngine.Textures.loadTexture(this.kMinionCollector);
+        gEngine.Textures.loadTexture(this.kMinionPortal);
     }
 
     unloadScene() {
