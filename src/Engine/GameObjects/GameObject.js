@@ -82,6 +82,12 @@ class GameObject {
         return this.mRenderComponent;
     }
 
+    getBBox() {
+        var xform = this.getXform();
+        var b = new BoundingBox(xform.getPosition(), xform.getWidth(), xform.getHeight());
+        return b;
+    }
+
     draw(aCamera) {
         if (this.isVisible()) {
             this.mRenderComponent.draw(aCamera);

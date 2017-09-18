@@ -30,13 +30,16 @@ class MyGame extends Scene {
         this.mMsg = new FontRenderable("Status Message");
         this.mMsg.setColor([0, 0, 0, 1]);
         this.mMsg.getXform().setPosition(1, 2);
-        this.mMsg.setTextHeight(3);
+        this.mMsg.setTextHeight(2);
     }
 
     update() {
         var msg = "Brain modes [H:keys, J:immediate, K:gradual]: ";
         var rate = 1;
         this.mHero.update();
+
+        var hBox = this.mHero.getBBox();
+        var bBox = this.mBrain.getBBox();
 
         switch (this.mMode) {
             case 'H':
@@ -45,10 +48,17 @@ class MyGame extends Scene {
             case 'K':
                 rate = 0.02;
             case 'J':
-                this.mBrain.rotateObjPointTo(this.mHero.getXform().getPosition(), rate);
-                super.update();
+                //this.mBrain.rotateObjPointTo(this.mHero.getXform().getPosition(), rate);
+                //super.update();
+                if (!hBox.intersectsBound(bBox)) {
+                    this.mBrain.rotateObjPointTo(this.mHero.getXform().getPosition(), rate);
+                    //super.update();
+                    GameObject.prototype.update.call(this.mBrain);
+                }
                 break;
         }
+
+        var status = this.mCamera.collideWCBound(this.mHero.getXform(), 0.8);
 
         if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
             this.mMode = 'H';
@@ -59,7 +69,7 @@ class MyGame extends Scene {
         if (gEngine.Input.isKeyClicked(gEngine.Input.keys.K)) {
             this.mMode = 'K';
         }
-        this.mMsg.setText(msg + this.mMode);
+        this.mMsg.setText(msg + this.mMode + " [Hero bound=" + status + "]");
     }
 
     draw() {

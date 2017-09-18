@@ -12,6 +12,7 @@ class Camera {
         // background color
         this.mBgColor = [0.8, 0.8, 0.8, 1]; // RGB and Alpha
     }
+
     setupViewProjection() {
         var gl = gEngine.Core.getGL();
         // Configue the viewport
@@ -28,29 +29,53 @@ class Camera {
         mat4.ortho(this.mProjMatrix, -halfWCWidth, halfWCWidth, -halfHeight, halfHeight, this.mNearPlane, this.mFarPlane);
         mat4.multiply(this.mVPMatrix, this.mProjMatrix, this.mViewMatrix);
     }
+
     setWCCenter(xPos, yPos) {
         this.mWCCenter[0] = xPos;
         this.mWCCenter[1] = yPos;
     }
+
     getWCCenter() {
         return this.mWCCenter;
     }
+
     setViewport(viewportArray) {
         this.mViewport = viewportArray;
     }
+
     getViewport() {
         return this.mViewport;
     }
+
     setBackgroundColor(newColor) {
         this.mBgColor = newColor;
     }
+
     getBackgroundColor() {
         return this.mBgColor;
     }
+
     setWCWidth(width) {
         this.mWCWidth = width;
     }
+
+    getWCWidth() {
+        return this.mWCWidth;
+    }
+
+    getWCHeight() {
+        return this.mWCWidth * this.mViewport[3] / this.mViewport[2];
+    }
+
     getVPMatrix() {
         return this.mVPMatrix;
+    }
+
+    collideWCBound(aXform, zone) {
+        var bbox = new BoundingBox(aXform.getPosition(), aXform.getWidth(), aXform.getHeight());
+        var w = zone * this.getWCWidth();
+        var h = zone * this.getWCHeight();
+        var cameraBound = new BoundingBox(this.getWCCenter(), w, h);
+        return cameraBound.boundCollideStatus(bbox);
     }
 };
