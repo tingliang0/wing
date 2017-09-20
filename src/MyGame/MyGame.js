@@ -44,8 +44,8 @@ class MyGame extends Scene {
 
     update() {
         var msg = "No Collision";
-        this.mPortal.update(gEngine.Input.keys.W, gEngine.Input.keys.S, gEngine.Input.keys.A, gEngine.Input.keys.D);
-        this.mCollector.update(gEngine.Input.keys.Up, gEngine.Input.keys.Down, gEngine.Input.keys.Left, gEngine.Input.keys.Right);
+        this.mPortal.update(gEngine.Input.keys.W, gEngine.Input.keys.S, gEngine.Input.keys.A, gEngine.Input.keys.D, gEngine.Input.keys.E);
+        this.mCollector.update(gEngine.Input.keys.Up, gEngine.Input.keys.Down, gEngine.Input.keys.Left, gEngine.Input.keys.Right, gEngine.Input.keys.P);
         var h = [];
         if (this.mPortal.pixelTouches(this.mCollector, h)) {
             msg = "Collided!: (" + h[0].toPrecision(4) + " " + h[1].toPrecision(4) + ")";

@@ -32,6 +32,7 @@ var kKeys = {
     J: 74,
     K: 75,
     L: 76,
+    P: 80,
     R: 82,
     S: 83,
     W: 87,
@@ -44,14 +45,14 @@ gEngine.Input = (function() {
     var mIsKeyPressed = [];
     var mIsKeyClicked = [];
 
-    var _onKeyDown = function (event) {
+    var _onKeyDown = function(event) {
         mIsKeyPressed[event.keyCode] = true;
     };
-    var _onKeyUp = function (event) {
+    var _onKeyUp = function(event) {
         mIsKeyPressed[event.keyCode] = false;
     };
 
-    var initialize = function () {
+    var initialize = function() {
         for (var i = 0; i < kKeys.LastKeyCode; i++) {
             mIsKeyPressed[i] = false;
             mKeyPreviousState[i] = false;
@@ -62,17 +63,17 @@ gEngine.Input = (function() {
         window.addEventListener('keydown', _onKeyDown);
     };
 
-    var update = function () {
+    var update = function() {
         for (var i = 0; i < kKeys.LastKeyCode; i++) {
             mIsKeyClicked[i] = (!mKeyPreviousState[i]) && mIsKeyPressed[i];
             mKeyPreviousState[i] = mIsKeyPressed[i];
         }
     };
 
-    var isKeyPressed = function (keyCode) {
+    var isKeyPressed = function(keyCode) {
         return mIsKeyPressed[keyCode];
     };
-    var isKeyClicked = function (keyCode) {
+    var isKeyClicked = function(keyCode) {
         return mIsKeyClicked[keyCode];
     };
 
@@ -85,4 +86,3 @@ gEngine.Input = (function() {
     };
     return mPublic;
 }());
-
