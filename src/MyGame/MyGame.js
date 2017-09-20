@@ -20,6 +20,8 @@ class MyGame extends Scene {
 
     unloadScene() {
         gEngine.Textures.unloadTexture(this.kMinionSprite);
+        gEngine.Textures.unloadTexture(this.kMinionCollector);
+        gEngine.Textures.unloadTexture(this.kMinionPortal);
     }
 
     initialize() {
@@ -28,8 +30,12 @@ class MyGame extends Scene {
             100, [0, 0, 640, 480]
         );
         this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
-        this.mBrain = new Brain(this.kMinionSprite);
-        this.mHero = new Hero(this.kMinionSprite);
+        this.mDyePack = new DyePack(this.kMinionSprite);
+        this.mDyePack.setVisibility(false);
+
+        this.mCollector = new TextureObject(this.kMinionCollector, 50, 30, 30, 30);
+        this.mPortal = new TextureObject(this.kMinionPortal, 70, 30, 10, 10);
+
         this.mMsg = new FontRenderable("Status Message");
         this.mMsg.setColor([0, 0, 0, 1]);
         this.mMsg.getXform().setPosition(1, 2);
@@ -37,50 +43,28 @@ class MyGame extends Scene {
     }
 
     update() {
-        var msg = "Brain modes [H:keys, J:immediate, K:gradual]: ";
-        var rate = 1;
-        this.mHero.update();
-
-        var hBox = this.mHero.getBBox();
-        var bBox = this.mBrain.getBBox();
-
-        switch (this.mMode) {
-            case 'H':
-                this.mBrain.update();
-                break;
-            case 'K':
-                rate = 0.02;
-            case 'J':
-                //this.mBrain.rotateObjPointTo(this.mHero.getXform().getPosition(), rate);
-                //super.update();
-                if (!hBox.intersectsBound(bBox)) {
-                    this.mBrain.rotateObjPointTo(this.mHero.getXform().getPosition(), rate);
-                    //super.update();
-                    GameObject.prototype.update.call(this.mBrain);
-                }
-                break;
+        var msg = "No Collision";
+        this.mPortal.update(gEngine.Input.keys.W, gEngine.Input.keys.S, gEngine.Input.keys.A, gEngine.Input.keys.D);
+        this.mCollector.update(gEngine.Input.keys.Up, gEngine.Input.keys.Down, gEngine.Input.keys.Left, gEngine.Input.keys.Right);
+        var h = [];
+        if (this.mPortal.pixelTouches(this.mCollector, h)) {
+            msg = "Collided!: (" + h[0].toPrecision(4) + " " + h[1].toPrecision(4) + ")";
+            this.mDyePack.setVisibility(true);
+            this.mDyePack.getXform().setXPos(h[0]);
+            this.mDyePack.getXform().setYPos(h[1]);
+        } else {
+            this.mDyePack.setVisibility(false);
         }
-
-        var status = this.mCamera.collideWCBound(this.mHero.getXform(), 0.8);
-
-        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
-            this.mMode = 'H';
-        }
-        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.J)) {
-            this.mMode = 'J';
-        }
-        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.K)) {
-            this.mMode = 'K';
-        }
-        this.mMsg.setText(msg + this.mMode + " [Hero bound=" + status + "]");
+        this.mMsg.setText(msg);
     }
 
     draw() {
         gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]);
         this.mCamera.setupViewProjection();
 
-        this.mHero.draw(this.mCamera);
-        this.mBrain.draw(this.mCamera);
+        this.mCollector.draw(this.mCamera);
+        this.mPortal.draw(this.mCamera);
+        this.mDyePack.draw(this.mCamera);
         this.mMsg.draw(this.mCamera);
     }
 }
