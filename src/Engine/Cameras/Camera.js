@@ -78,4 +78,24 @@ class Camera {
         var cameraBound = new BoundingBox(this.getWCCenter(), w, h);
         return cameraBound.boundCollideStatus(bbox);
     }
+
+    clampAtBoundary(aXform, zone) {
+        var status = this.collideWCBound(aXform, zone);
+        if (status !== BoundingBox.eboundCollideStatus.eInside) {
+            var pos = aXform.getPosition();
+            if ((status & BoundingBox.eboundCollideStatus.eCollideTop) !== 0) {
+                pos[1] = (this.getWCCenter())[1] + (zone * this.getWCHeight() / 2) - (aXform.getHeight() / 2);
+            }
+            if ((status & BoundingBox.eboundCollideStatus.eCollideBottom) !== 0) {
+                pos[1] = (this.getWCCenter())[1] - (zone * thie.getWCHeight() / 2) + (aXform.getHeight() / 2);
+            }
+            if ((status & BoundingBox.eboundCollideStatus.eCollideRight) !== 0) {
+                pos[0] = (this.getWCCenter())[0] + (zone * this.getWCWidth() / 2) - (aXform.getWidth() / 2);
+            }
+            if ((status & BoundingBox.eboundCollideStatus.eCollideLeft) !== 0) {
+                pos[0] = (this.getWCCenter())[0] - (zone * this.getWCWidth() / 2) + (aXform.getWidth() / 2);
+            }
+        }
+        return status;
+    }
 };
