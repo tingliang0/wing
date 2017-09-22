@@ -6,6 +6,7 @@ class SpriteRenderable extends TextureRenderable {
         this.mTexRight = 1.0;
         this.mTexTop = 1.0;
         this.mTexBottom = 0.0;
+        this.setTexInfo();
     }
 
     setElementUVCoordinate(left, right, bottom, top) {
@@ -13,6 +14,7 @@ class SpriteRenderable extends TextureRenderable {
         this.mTexRight = right;
         this.mTexTop = top;
         this.mTexBottom = bottom;
+        this.setTexInfo();
     }
 
     setElementPixelPositions(left, right, bottom, top) {
@@ -23,6 +25,7 @@ class SpriteRenderable extends TextureRenderable {
         this.mTexRight = right / imageW;
         this.mTexTop = top / imageH;
         this.mTexBottom = bottom / imageH;
+        this.setTexInfo();
     }
 
     getElementUVCoordinateArray() {
